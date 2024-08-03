@@ -16,6 +16,7 @@ spec:
       - name: jaeger
         image: jaegertracing/all-in-one:latest
         ports:
+        - containerPort: 4317
         - containerPort: 4318
         - containerPort: 16686
 ---
@@ -27,7 +28,11 @@ spec:
   selector:
     app: jaeger
   ports:
-    - name: collector
+    - name: otlp-grpc
+      protocol: TCP
+      port: 4317
+      targetPort: 4317
+    - name: otlp-http
       protocol: TCP
       port: 4318
       targetPort: 4318

@@ -32,3 +32,7 @@ data:
 ```bash
 helm uninstall -n otel-test myrelease; helm install -n otel-test myrelease mychart/; watch 'kubectl get all -n otel-test';
 ```
+
+### Reference
+- [ingress-nginx official document: opentelemetry](https://kubernetes.github.io/ingress-nginx/user-guide/third-party-addons/opentelemetry/)
+- [todo source (docker-compose)](https://github.com/habmic/opentelemetry-101)

@@ -33,6 +33,28 @@ data:
 helm uninstall -n otel-test myrelease; helm install -n otel-test myrelease mychart/; watch 'kubectl get all -n otel-test';
 ```
 
+### auto-instrument
+#### cert-maanger
+- cert-maanger: `kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.15.2/cert-manager.yaml`
+
+#### otel-operator
+- otel-operator: `kubectl apply -f https://github.com/open-telemetry/opentelemetry-operator/releases/latest/download/opentelemetry-operator.yaml`
+
+or 
+
+- 
+```bash
+helm install opentelemetry-operator open-telemetry/opentelemetry-operator \
+--set "manager.collectorImage.repository=otel/opentelemetry-collector-k8s" \
+--set admissionWebhooks.certManager.enabled=false \
+--set admissionWebhooks.autoGenerateCert.enabled=true
+```
+
+```bash
+helm uninstall opentelemetry-operator
+```
+
+
 ### Reference
 - [ingress-nginx official document: opentelemetry](https://kubernetes.github.io/ingress-nginx/user-guide/third-party-addons/opentelemetry/)
 - [todo source (docker-compose)](https://github.com/habmic/opentelemetry-101)

@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: todo
-        image: opentelemetry-101-todo:latest
+        image: todo-no-import:latest
         imagePullPolicy: Never
         ports:
         - containerPort: 8080

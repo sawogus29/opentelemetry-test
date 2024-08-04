@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: auth
-        image: opentelemetry-101-auth:latest
+        image: auth-no-import:latest
         imagePullPolicy: Never
         ports:
         - containerPort: 8080

@@ -58,3 +58,5 @@ helm uninstall opentelemetry-operator
 ### Reference
 - [ingress-nginx official document: opentelemetry](https://kubernetes.github.io/ingress-nginx/user-guide/third-party-addons/opentelemetry/)
 - [todo source (docker-compose)](https://github.com/habmic/opentelemetry-101)
+
+- [Instrument for both nodejs & python](https://github.com/open-telemetry/opentelemetry-operator/blob/main/README.md#opentelemetry-auto-instrumentation-injection)

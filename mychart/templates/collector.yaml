@@ -22,12 +22,19 @@ spec:
 
     exporters:
       debug:
+        verbosity: detailed
       otlp:
         endpoint: jaeger:4317
         tls:
           insecure: true
+      otlphttp:
+        endpoint: http://loki-gateway.monitoring.svc.cluster.local/otlp
+
 
     service:
+      # telemetry:
+      #   logs:
+      #     level: "debug"
       pipelines:
         traces:
           receivers: [otlp]
@@ -37,7 +44,7 @@ spec:
         #   receivers: [otlp]
         #   processors: [memory_limiter, batch]
         #   exporters: [debug]
-        # logs:
-        #   receivers: [otlp]
-        #   processors: [memory_limiter, batch]
-        #   exporters: [debug]
+        logs:
+          receivers: [otlp]
+          # processors: []
+          exporters: [otlphttp]

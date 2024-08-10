@@ -28,6 +28,13 @@ data:
 ...
 ```
 
+### install Loki & Grafana
+```bash
+helm install --create-namespace -n monitoring -f values-loki.yaml loki grafana/loki
+helm install --create-namespace -n monitoring grafana grafana/grafana
+```
+
+
 ### install chart
 ```bash
 helm uninstall -n otel-test myrelease; helm install -n otel-test myrelease mychart/; watch 'kubectl get all -n otel-test';

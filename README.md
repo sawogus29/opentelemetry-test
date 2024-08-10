@@ -3,7 +3,7 @@
 helm upgrade --install ingress-nginx ingress-nginx \
   --repo https://kubernetes.github.io/ingress-nginx \
   --namespace ingress-nginx --create-namespace \
-  -f controller-config.yaml
+  -f nginx-controller-config.yaml
 ```
 or
 if ingress-nginx-controller already installed,

@@ -16,7 +16,7 @@ data:
   enable-opentelemetry: "true"
   opentelemetry-operation-name: "HTTP $request_method $service_name $uri"
   opentelemetry-trust-incoming-span: "true"
-  otlp-collector-host: "jaeger.otel-test.svc"
+  otlp-collector-host: "demo-collector.otel-test.svc"
   otlp-collector-port: "4317"
   # otel-max-queuesize: "2048"
   # otel-schedule-delay-millis: "5000"

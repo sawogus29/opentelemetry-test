@@ -5,7 +5,7 @@ metadata:
   namespace: otel-test
 spec:
   exporter:
-    endpoint: http://jaeger:4317
+    endpoint: http://demo-collector:4317
   propagators:
     - tracecontext
     - baggage
@@ -18,4 +18,4 @@ spec:
       # Python autoinstrumentation uses http/proto by default
       # so data must be sent to 4318 instead of 4317.
       - name: OTEL_EXPORTER_OTLP_ENDPOINT
-        value: http://jaeger:4318
+        value: http://demo-collector:4318

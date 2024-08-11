@@ -27,6 +27,10 @@ spec:
         endpoint: jaeger:4317
         tls:
           insecure: true
+      otlp/tempo:
+        endpoint: tempo.monitoring.svc.cluster.local:4317
+        tls:
+          insecure: true
       otlphttp:
         endpoint: http://loki-gateway.monitoring.svc.cluster.local/otlp
 
@@ -39,7 +43,7 @@ spec:
         traces:
           receivers: [otlp]
           # processors: []
-          exporters: [otlp]
+          exporters: [otlp, otlp/tempo]
         # metrics:
         #   receivers: [otlp]
         #   processors: [memory_limiter, batch]

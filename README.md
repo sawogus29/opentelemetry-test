@@ -34,6 +34,29 @@ helm install --create-namespace -n monitoring -f values-loki.yaml loki grafana/l
 helm install --create-namespace -n monitoring grafana grafana/grafana
 ```
 
+<details>
+
+![Grafana Datasource: Loki](docs/Loki-Connection.png)
+</details>
+
+
+### install Tempo
+```bash
+helm install --create-namespace -n monitoring tempo grafana/tempo
+```
+
+<details>
+
+![Grafana Datasource: Tempo](docs/Tempo-Connection.png)
+</details>
+
+### collocation between Loki & Tempo
+- Loki -> Tempo
+![Grafana Datasource > Loki > derived field](docs/Loki-Derived_fields.png)
+
+- Tempo -> Loki
+![Grafana Datasource > Tempo > Trace to logs](docs/Tempo-Trace_to_logs.png)
+
 
 ### install chart
 ```bash
@@ -67,3 +90,7 @@ helm uninstall opentelemetry-operator
 - [todo source (docker-compose)](https://github.com/habmic/opentelemetry-101)
 
 - [Instrument for both nodejs & python](https://github.com/open-telemetry/opentelemetry-operator/blob/main/README.md#opentelemetry-auto-instrumentation-injection)
+
+- [Collocate Your Metric, Log & Traces](https://youtu.be/qVITI34ZFuk?si=soPBhcc2sN5vxb61)
+  - [Grafana Loki: Structured Metadata](https://grafana.com/docs/loki/latest/get-started/labels/structured-metadata/) : OpenTelemetry attributes are ⚠️Metadata⚠️ (not Label!!!)
+  - [Grafana Tempo: Trace to Logs](https://grafana.com/docs/grafana/latest/datasources/tempo/configure-tempo-data-source/#trace-to-logs)

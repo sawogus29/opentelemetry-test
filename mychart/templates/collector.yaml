@@ -37,6 +37,12 @@ spec:
         endpoint: http://mimir.monitoring.svc.cluster.local:9009/otlp
       # prometheusremotewrite:
       #   endpoint: http://mimir.monitoring.svc.cluster.local/api/v1/push
+      prometheus:
+        endpoint: "0.0.0.0:8889"
+        send_timestamps: true
+        namespace: otel-test
+        const_labels:
+          via: collector
 
     service:
       # telemetry:
@@ -50,7 +56,7 @@ spec:
         metrics:
           receivers: [otlp]
           # processors: [memory_limiter, batch]
-          exporters: [otlphttp/mimir]
+          exporters: [otlphttp/mimir, prometheus]
         logs:
           receivers: [otlp]
           # processors: []

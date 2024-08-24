@@ -75,7 +75,7 @@ or
 - 
 ```bash
 helm install opentelemetry-operator open-telemetry/opentelemetry-operator \
---set "manager.collectorImage.repository=otel/opentelemetry-collector-k8s" \
+--set "manager.collectorImage.repository=otel/opentelemetry-collector-contrib" \    # contrib for collector prometheus exporter
 --set admissionWebhooks.certManager.enabled=false \
 --set admissionWebhooks.autoGenerateCert.enabled=true
 ```

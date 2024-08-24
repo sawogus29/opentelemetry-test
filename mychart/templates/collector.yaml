@@ -33,7 +33,10 @@ spec:
           insecure: true
       otlphttp:
         endpoint: http://loki-gateway.monitoring.svc.cluster.local/otlp
-
+      otlphttp/mimir:
+        endpoint: http://mimir.monitoring.svc.cluster.local:9009/otlp
+      # prometheusremotewrite:
+      #   endpoint: http://mimir.monitoring.svc.cluster.local/api/v1/push
 
     service:
       # telemetry:
@@ -44,10 +47,10 @@ spec:
           receivers: [otlp]
           # processors: []
           exporters: [otlp, otlp/tempo]
-        # metrics:
-        #   receivers: [otlp]
-        #   processors: [memory_limiter, batch]
-        #   exporters: [debug]
+        metrics:
+          receivers: [otlp]
+          # processors: [memory_limiter, batch]
+          exporters: [otlphttp/mimir]
         logs:
           receivers: [otlp]
           # processors: []

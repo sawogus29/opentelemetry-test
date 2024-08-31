@@ -62,9 +62,9 @@ spec:
           receivers: [otlp]
           # processors: [memory_limiter, batch]
           # exporters: [otlphttp/mimir]
-          # exporters: [otlphttp/mimir, prometheus, debug]
-          exporters: [debug]
-        logs:
-          receivers: [otlp]
+          exporters: [prometheus]
+          # exporters: [debug]
+        # logs:
+          # receivers: [otlp]
           # processors: []
-          exporters: [otlphttp]
+          # exporters: [otlphttp]

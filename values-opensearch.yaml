@@ -1,0 +1,6 @@
+singleNode: "true"
+extraEnvs:
+  - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
+    value: admin
+  - name: DISABLE_SECURITY_PLUGIN
+    value: "true"

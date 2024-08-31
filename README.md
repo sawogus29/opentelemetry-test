@@ -84,6 +84,21 @@ helm install opentelemetry-operator open-telemetry/opentelemetry-operator \
 helm uninstall opentelemetry-operator
 ```
 
+### fluent-bit & OpenSearch (+dashboards)
+```
+helm repo add fluent https://fluent.github.io/helm-charts
+helm -n monitoring uninstall fluent-bit; helm -n monitoring install fluent-bit fluent/fluent-bit -f values-fluent-bit.yaml
+```
+
+```
+helm repo add opensearch https://opensearch-project.github.io/helm-charts/
+helm repo update
+
+helm -n monitoring install opensearch opensearch/opensearch -f values-opensearch.yaml
+helm -n monitoring install opensearch-dashbolrds opensearch/opensearch-dashboards
+```
+
+
 
 ### Reference
 - [ingress-nginx official document: opentelemetry](https://kubernetes.github.io/ingress-nginx/user-guide/third-party-addons/opentelemetry/)
@@ -105,3 +120,7 @@ helm uninstall opentelemetry-operator
     ------> NPM Package(auto-instrumentations-node) == opentelemetry-js-contrib (???) 
     --(?)-- opentelemetry-js (FIXED)`
     ```
+    
+- fluent-bit
+  - [install](https://docs.fluentbit.io/manual/installation/kubernetes#installation)
+  - [values](https://github.com/fluent/helm-charts/blob/main/charts/fluent-bit/values.yaml)

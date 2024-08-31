@@ -94,3 +94,14 @@ helm uninstall opentelemetry-operator
 - [Collocate Your Metric, Log & Traces](https://youtu.be/qVITI34ZFuk?si=soPBhcc2sN5vxb61)
   - [Grafana Loki: Structured Metadata](https://grafana.com/docs/loki/latest/get-started/labels/structured-metadata/) : OpenTelemetry attributes are ⚠️Metadata⚠️ (not Label!!!)
   - [Grafana Tempo: Trace to Logs](https://grafana.com/docs/grafana/latest/datasources/tempo/configure-tempo-data-source/#trace-to-logs)
+  
+- Exemplars
+  - [OpenTelemetry: Exemplar](https://opentelemetry.io/docs/specs/otel/metrics/data-model/#exemplars)
+  - [OpenTelemetry: Exemplar Spec](https://github.com/open-telemetry/oteps/blob/main/text/metrics/0113-exemplars.md)
+  - [Prometheus Exporter: Exemplars](https://github.com/open-telemetry/opentelemetry-collector-contrib/issues/30197)
+  - [OpenTelemetry-js: http.server.duration Error](https://github.com/open-telemetry/opentelemetry-js/pull/3710)
+    ```
+    Docker Image(autoinstrumentation-nodejs)(https://github.com/open-telemetry/opentelemetry-operator/blob/main/autoinstrumentation/nodejs/package.json) 
+    ------> NPM Package(auto-instrumentations-node) == opentelemetry-js-contrib (???) 
+    --(?)-- opentelemetry-js (FIXED)`
+    ```

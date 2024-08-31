@@ -15,7 +15,7 @@ spec:
       containers:
       - name: prometheus
         image: prom/prometheus:latest
-        args: ["--config.file=/etc/prometheus/prometheus.yml"]
+        args: ["--config.file=/etc/prometheus/prometheus.yml", "--enable-feature=exemplar-storage"]
         ports:
         - containerPort: 9090
         volumeMounts:

@@ -12,10 +12,6 @@ spec:
   sampler:
     type: parentbased_traceidratio
     argument: "1"
-  nodejs:
-    env:
-      - name: OTEL_LOGS_EXPORTER
-        value: console
   python:
     env:
       # Required if endpoint is set to 4317.
@@ -27,8 +23,7 @@ spec:
       - name: OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED
         value: 'true'
       - name: OTEL_LOGS_EXPORTER
-        # value: otlp_proto_http
-        value: console
+        value: otlp_proto_http
       # METRIC
       - name: OTEL_EXPORTER_OTLP_METRICS_ENDPOINT
         value: http://demo-collector:4318/v1/metrics

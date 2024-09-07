@@ -58,11 +58,6 @@ helm install --create-namespace -n monitoring tempo grafana/tempo
 ![Grafana Datasource > Tempo > Trace to logs](docs/Tempo-Trace_to_logs.png)
 
 
-### install chart
-```bash
-helm uninstall -n otel-test myrelease; helm install -n otel-test myrelease mychart/; watch 'kubectl get all -n otel-test';
-```
-
 ### auto-instrument
 #### cert-maanger
 - cert-maanger: `kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.15.2/cert-manager.yaml`
@@ -75,6 +70,7 @@ or
 - 
 ```bash
 helm install opentelemetry-operator open-telemetry/opentelemetry-operator \
+--version 0.66.0 \                                                  # latest version(0.67.0) has python-autoinstrumentation BUG
 --set "manager.collectorImage.repository=otel/opentelemetry-collector-contrib" \    # contrib for collector prometheus exporter
 --set admissionWebhooks.certManager.enabled=false \
 --set admissionWebhooks.autoGenerateCert.enabled=true
@@ -82,6 +78,12 @@ helm install opentelemetry-operator open-telemetry/opentelemetry-operator \
 
 ```bash
 helm uninstall opentelemetry-operator
+```
+
+
+### install chart
+```bash
+k apply -f instrumentation.yaml; helm uninstall -n otel-test myrelease; helm install -n otel-test myrelease mychart/; watch 'kubectl -n otel-test get all'; helm uninstall -n otel-test myrelease;
 ```
 
 
@@ -105,3 +107,6 @@ helm uninstall opentelemetry-operator
     ------> NPM Package(auto-instrumentations-node) == opentelemetry-js-contrib (???) 
     --(?)-- opentelemetry-js (FIXED)`
     ```
+
+- Tail Sampling
+  - [Scaling Collectors](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/processor/tailsamplingprocessor#scaling-collectors-with-the-tail-sampling-processor)

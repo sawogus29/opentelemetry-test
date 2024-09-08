@@ -115,4 +115,4 @@ k apply -f instrumentation.yaml; helm uninstall -n otel-test myrelease; helm ins
   - [logCollection preset](https://github.com/open-telemetry/opentelemetry-helm-charts/blob/aaa70bde1bf8bf15fc411282468ac6d2d07f772d/charts/opentelemetry-collector/templates/_config.tpl#L206-L282)
   - [stanza](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/pkg/stanza)
     - [operator](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/pkg/stanza/docs/operators)
-  
+  - [trace_parser](https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/pkg/stanza/operator/helper/trace.go)

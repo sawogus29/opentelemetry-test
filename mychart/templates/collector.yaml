@@ -58,6 +58,53 @@ spec:
             combine_with: ""
             source_identifier: attributes["log.file.path"]
             max_log_size: 256000  # Adjust based on expected max log size
+          - type: router
+            routes:
+              - output: otel-parser
+                expr: 'body matches "^\\{\\n.*"'
+            default: noop
+          #----- attributes, body, resource ---------#
+          - type: json_parser
+            id: otel-parser
+            parse_from: body
+            # parse_ints: true
+          - type: move
+            from: attributes.body
+            to: body
+          # - type: json_parser                 # Parser error
+          #   id: resource-parser
+          #   parse_from: attributes.resource
+          #   parse_to: resource
+          #----- flatten attribute ---------#
+          - type: flatten
+            field: attributes.attributes
+          - type: move
+            from: attributes.otelTraceID
+            to: attributes.trace_id
+          - type: move
+            from: attributes.otelSpanID
+            to: attributes.span_id
+          - type: move
+            from: attributes.otelServiceName
+            to: attributes.service_name
+          - type: remove
+            field: attributes.resource
+          #---- parse trace and severity ------#
+          - type: trace_parser
+            trace_id:
+              parse_from: attributes.trace_id
+            span_id:
+              parse_from: attributes.span_id
+            # trace_flags:
+            #   parse_from: attributes.trace_flags
+          - type: severity_parser
+            parse_from: attributes.severity_text
+          # - type: move
+          #   from: attributes.attributes
+          #   to: attributes
+          - type: noop
+            id: noop
+
       #--------------------------------------------#
 
     processors:

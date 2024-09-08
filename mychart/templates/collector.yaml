@@ -3,6 +3,32 @@ kind: OpenTelemetryCollector
 metadata:
   name: demo
 spec:
+  mode: daemonset
+  #----------- filelog ----------------#
+  volumeMounts:
+  - name: var-log-pods
+    mountPath: /var/log/pods
+    readOnly: true
+  - name: var-log-containers
+    mountPath: /var/log/containers
+    readOnly: true
+  - name: var-lib-docker-containers
+    mountPath: /var/lib/docker/containers
+    readOnly: true
+  volumes:
+  - name: var-log-pods
+    hostPath: 
+      path: /var/log/pods
+      type: Directory
+  - name: var-log-containers
+    hostPath: 
+      path: /var/log/containers
+      type: Directory
+  - name: var-lib-docker-containers
+    hostPath:
+      path: /var/lib/docker/containers
+      type: Directory
+  #-------------------------------------#
   config: |
     receivers:
       otlp:
@@ -11,6 +37,29 @@ spec:
             endpoint: 0.0.0.0:4317
           http:
             endpoint: 0.0.0.0:4318
+      #------------- filelog ---------------------#
+      filelog:
+        include:
+          - /var/log/pods/*/auth/*.log
+        exclude:
+          # Exclude logs from all containers named demo-collector
+          - /var/log/pods/*/demo-collector/*.log
+        start_at: beginning
+        include_file_path: true
+        include_file_name: false
+        operators:
+          - type: container
+            format: docker
+            add_metadata_from_filepath: true
+          - type: recombine
+            id: multiline-recombine
+            combine_field: body
+            is_first_entry: 'body matches "(^\\{\\n$)|(^\\[\\d{4}-\\d{2}-\\d{2}.*\\].*)"'
+            combine_with: ""
+            source_identifier: attributes["log.file.path"]
+            max_log_size: 256000  # Adjust based on expected max log size
+      #--------------------------------------------#
+
     processors:
       # memory_limiter:
       #   check_interval: 1s
@@ -63,6 +112,8 @@ spec:
         #   processors: [memory_limiter, batch]
         #   exporters: [otlphttp/mimir, prometheus, debug]
         logs:
-          receivers: [otlp]
+          # receivers: [otlp]
           # processors: []
-          exporters: [otlphttp]
+          # exporters: [otlphttp]
+          receivers: [filelog]
+          exporters: [debug]

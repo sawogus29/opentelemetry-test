@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: log-explorer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: log-explorer
+  template:
+    metadata:
+      labels:
+        app: log-explorer
+    spec:
+      containers:
+      - name: log-explorer-container
+        image: busybox:latest  # or use alpine:latest for a smaller image
+        # securityContext:
+        #   runAsUser: 0  # Run as root
+        #   capabilities:
+        #     add:
+        #       - SYS_ADMIN
+        command: ["/bin/sh", "-c", "sleep infinity"]
+        volumeMounts:
+        - name: var-log-pods
+          mountPath: /var/log/pods
+          readOnly: true
+        - name: var-log-containers
+          mountPath: /var/log/containers
+          readOnly: true
+        - name: var-lib-docker-containers
+          mountPath: /var/lib/docker/containers
+          readOnly: true
+      volumes:
+      - name: var-log-pods
+        hostPath: 
+          path: /var/log/pods
+          type: Directory
+      - name: var-log-containers
+        hostPath: 
+          path: /var/log/containers
+          type: Directory
+      - name: var-lib-docker-containers
+        hostPath:
+          path: /var/lib/docker/containers
+          type: Directory
